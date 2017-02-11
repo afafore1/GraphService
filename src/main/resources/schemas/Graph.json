@@ -1,0 +1,57 @@
+{
+  "title": "Graph",
+  "type": "object",
+  "properties":
+  {
+    "Node":
+    {
+      "type": "object",
+      "properties":
+      {
+        "id":
+        {
+          "description": "Node Id",
+          "type": "integer"
+        },
+        "xPosition":
+        {
+          "description": "x coordinate",
+          "type": "integer"
+        },
+        "yPosition":
+        {
+          "description": "y coordinate",
+          "type": "integer"
+        },
+        "neighbors":
+        {
+          "description": "Neighbors to this node",
+          "type": "array",
+          "items":
+          {
+            "type": "Node"
+          }
+        }
+      },
+      "required": ["id"]
+    },
+    "Edge":
+    {
+      "type": "object",
+      "properties":
+      {
+        "source":
+        {
+          "description": "Source node",
+          "type": "Node"
+        },
+        "destination":
+        {
+          "description": "Destination node",
+          "type": "Node"
+        }
+      },
+      "required": ["source", "destination"]
+    }
+  }
+}
