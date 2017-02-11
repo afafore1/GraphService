@@ -1,0 +1,32 @@
+{
+  "title": "Node",
+  "type": "object",
+  "properties":
+  {
+    "id":
+    {
+      "description": "Node Id",
+      "type": "integer"
+    },
+    "xPosition":
+    {
+      "description": "x coordinate",
+      "type": "integer"
+    },
+    "yPosition":
+    {
+      "description": "y coordinate",
+      "type": "integer"
+    },
+    "neighbors":
+    {
+      "description": "Neighbors to this node",
+      "type": "array",
+      "items":
+      {
+        "type": "Node"
+      }
+    }
+  },
+  "required": ["id"]
+}

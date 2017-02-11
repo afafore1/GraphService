@@ -1,0 +1,18 @@
+{
+  "title": "Edge",
+  "type": "object",
+  "properties":
+  {
+    "source":
+    {
+      "description": "Source node",
+      "type": "Node"
+    },
+    "destination":
+    {
+      "description": "Destination node",
+      "type": "Node"
+    }
+  },
+  "required": ["source", "destination"]
+}
