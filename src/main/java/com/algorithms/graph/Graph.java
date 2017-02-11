@@ -1,13 +1,16 @@
 
 package com.algorithms.graph;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -23,7 +26,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "Node",
-    "Edge"
+    "Edge",
+    "NodeList"
 })
 public class Graph {
 
@@ -31,6 +35,13 @@ public class Graph {
     private Node node;
     @JsonProperty("Edge")
     private Edge edge;
+    /**
+     * List containing all Nodes in Graph
+     * 
+     */
+    @JsonProperty("NodeList")
+    @JsonPropertyDescription("List containing all Nodes in Graph")
+    private List<Object> nodeList = new ArrayList<Object>();
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -64,6 +75,29 @@ public class Graph {
         return this;
     }
 
+    /**
+     * List containing all Nodes in Graph
+     * 
+     */
+    @JsonProperty("NodeList")
+    public List<Object> getNodeList() {
+        return nodeList;
+    }
+
+    /**
+     * List containing all Nodes in Graph
+     * 
+     */
+    @JsonProperty("NodeList")
+    public void setNodeList(List<Object> nodeList) {
+        this.nodeList = nodeList;
+    }
+
+    public Graph withNodeList(List<Object> nodeList) {
+        this.nodeList = nodeList;
+        return this;
+    }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
@@ -86,7 +120,7 @@ public class Graph {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(node).append(edge).append(additionalProperties).toHashCode();
+        return new HashCodeBuilder().append(node).append(edge).append(nodeList).append(additionalProperties).toHashCode();
     }
 
     @Override
@@ -98,7 +132,7 @@ public class Graph {
             return false;
         }
         Graph rhs = ((Graph) other);
-        return new EqualsBuilder().append(node, rhs.node).append(edge, rhs.edge).append(additionalProperties, rhs.additionalProperties).isEquals();
+        return new EqualsBuilder().append(node, rhs.node).append(edge, rhs.edge).append(nodeList, rhs.nodeList).append(additionalProperties, rhs.additionalProperties).isEquals();
     }
 
 }
