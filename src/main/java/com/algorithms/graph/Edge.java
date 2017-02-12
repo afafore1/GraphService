@@ -17,7 +17,9 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "source",
-    "destination"
+    "destination",
+    "weight",
+    "isSettled"
 })
 public class Edge {
 
@@ -37,6 +39,20 @@ public class Edge {
     @JsonProperty("destination")
     @JsonPropertyDescription("Destination node")
     private Object destination;
+    /**
+     * Weight of edge between Nodes
+     * 
+     */
+    @JsonProperty("weight")
+    @JsonPropertyDescription("Weight of edge between Nodes")
+    private Double weight;
+    /**
+     * Check if this edge has been settled. Used in Dijkstra's algorithm
+     * 
+     */
+    @JsonProperty("isSettled")
+    @JsonPropertyDescription("Check if this edge has been settled. Used in Dijkstra's algorithm")
+    private Boolean isSettled;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -90,6 +106,52 @@ public class Edge {
         return this;
     }
 
+    /**
+     * Weight of edge between Nodes
+     * 
+     */
+    @JsonProperty("weight")
+    public Double getWeight() {
+        return weight;
+    }
+
+    /**
+     * Weight of edge between Nodes
+     * 
+     */
+    @JsonProperty("weight")
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
+    public Edge withWeight(Double weight) {
+        this.weight = weight;
+        return this;
+    }
+
+    /**
+     * Check if this edge has been settled. Used in Dijkstra's algorithm
+     * 
+     */
+    @JsonProperty("isSettled")
+    public Boolean getIsSettled() {
+        return isSettled;
+    }
+
+    /**
+     * Check if this edge has been settled. Used in Dijkstra's algorithm
+     * 
+     */
+    @JsonProperty("isSettled")
+    public void setIsSettled(Boolean isSettled) {
+        this.isSettled = isSettled;
+    }
+
+    public Edge withIsSettled(Boolean isSettled) {
+        this.isSettled = isSettled;
+        return this;
+    }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
@@ -112,7 +174,7 @@ public class Edge {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(source).append(destination).append(additionalProperties).toHashCode();
+        return new HashCodeBuilder().append(source).append(destination).append(weight).append(isSettled).append(additionalProperties).toHashCode();
     }
 
     @Override
@@ -124,7 +186,7 @@ public class Edge {
             return false;
         }
         Edge rhs = ((Edge) other);
-        return new EqualsBuilder().append(source, rhs.source).append(destination, rhs.destination).append(additionalProperties, rhs.additionalProperties).isEquals();
+        return new EqualsBuilder().append(source, rhs.source).append(destination, rhs.destination).append(weight, rhs.weight).append(isSettled, rhs.isSettled).append(additionalProperties, rhs.additionalProperties).isEquals();
     }
 
 }
