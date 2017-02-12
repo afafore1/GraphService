@@ -21,7 +21,9 @@ import org.apache.commons.lang.builder.ToStringBuilder;
     "id",
     "xPosition",
     "yPosition",
-    "neighbors"
+    "visited",
+    "neighbors",
+    "parent"
 })
 public class Node {
 
@@ -48,12 +50,26 @@ public class Node {
     @JsonPropertyDescription("y coordinate")
     private Integer yPosition;
     /**
+     * Verify if this node has been visited
+     * 
+     */
+    @JsonProperty("visited")
+    @JsonPropertyDescription("Verify if this node has been visited")
+    private Boolean visited;
+    /**
      * Neighbors to this node
      * 
      */
     @JsonProperty("neighbors")
     @JsonPropertyDescription("Neighbors to this node")
     private List<Object> neighbors = new ArrayList<Object>();
+    /**
+     * Parent Node
+     * 
+     */
+    @JsonProperty("parent")
+    @JsonPropertyDescription("Parent Node")
+    private Object parent;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -129,6 +145,29 @@ public class Node {
     }
 
     /**
+     * Verify if this node has been visited
+     * 
+     */
+    @JsonProperty("visited")
+    public Boolean getVisited() {
+        return visited;
+    }
+
+    /**
+     * Verify if this node has been visited
+     * 
+     */
+    @JsonProperty("visited")
+    public void setVisited(Boolean visited) {
+        this.visited = visited;
+    }
+
+    public Node withVisited(Boolean visited) {
+        this.visited = visited;
+        return this;
+    }
+
+    /**
      * Neighbors to this node
      * 
      */
@@ -148,6 +187,29 @@ public class Node {
 
     public Node withNeighbors(List<Object> neighbors) {
         this.neighbors = neighbors;
+        return this;
+    }
+
+    /**
+     * Parent Node
+     * 
+     */
+    @JsonProperty("parent")
+    public Object getParent() {
+        return parent;
+    }
+
+    /**
+     * Parent Node
+     * 
+     */
+    @JsonProperty("parent")
+    public void setParent(Object parent) {
+        this.parent = parent;
+    }
+
+    public Node withParent(Object parent) {
+        this.parent = parent;
         return this;
     }
 
@@ -173,7 +235,7 @@ public class Node {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(id).append(xPosition).append(yPosition).append(neighbors).append(additionalProperties).toHashCode();
+        return new HashCodeBuilder().append(id).append(xPosition).append(yPosition).append(visited).append(neighbors).append(parent).append(additionalProperties).toHashCode();
     }
 
     @Override
@@ -185,7 +247,7 @@ public class Node {
             return false;
         }
         Node rhs = ((Node) other);
-        return new EqualsBuilder().append(id, rhs.id).append(xPosition, rhs.xPosition).append(yPosition, rhs.yPosition).append(neighbors, rhs.neighbors).append(additionalProperties, rhs.additionalProperties).isEquals();
+        return new EqualsBuilder().append(id, rhs.id).append(xPosition, rhs.xPosition).append(yPosition, rhs.yPosition).append(visited, rhs.visited).append(neighbors, rhs.neighbors).append(parent, rhs.parent).append(additionalProperties, rhs.additionalProperties).isEquals();
     }
 
 }

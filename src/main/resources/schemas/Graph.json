@@ -23,14 +23,24 @@
           "description": "y coordinate",
           "type": "integer"
         },
+        "visited":
+        {
+          "description": "Verify if this node has been visited",
+          "type": "boolean"
+        },
         "neighbors":
         {
           "description": "Neighbors to this node",
           "type": "array",
           "items":
           {
-            "type": "Node"
+            "type": "node"
           }
+        },
+        "parent":
+        {
+          "description": "Parent Node",
+          "type": "node"
         }
       },
       "required": ["id"]
@@ -49,6 +59,16 @@
         {
           "description": "Destination node",
           "type": "Node"
+        },
+        "weight":
+        {
+          "description": "Weight of edge between Nodes",
+          "type": "number"
+        },
+        "isSettled":
+        {
+          "description": "Check if this edge has been settled. Used in Dijkstra's algorithm",
+          "type": "boolean"
         }
       },
       "required": ["source", "destination"]
