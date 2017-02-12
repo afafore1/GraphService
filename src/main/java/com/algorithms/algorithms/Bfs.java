@@ -26,6 +26,7 @@ public class Bfs {
         {
             Node current = nodeQueue.remove();
             List<Node> currentsNeighbors = (List<Node>)(Object) current.getNeighbors();
+            if(currentsNeighbors.isEmpty()) continue;
             for(Node node : currentsNeighbors)
             {
                 if(!node.getVisited())
