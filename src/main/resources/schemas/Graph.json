@@ -60,9 +60,9 @@
           "description": "Destination node",
           "type": "Node"
         },
-        "weight":
+        "cost":
         {
-          "description": "Weight of edge between Nodes",
+          "description": "cost of taking edge between Nodes",
           "type": "number"
         },
         "isSettled":
