@@ -2,8 +2,6 @@ package com.algorithms.algorithms;
 
 import com.algorithms.graph.Edge;
 import com.algorithms.graph.Node;
-
-import java.util.DoubleSummaryStatistics;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -29,7 +27,6 @@ public class Dijkstra {
         this.allNodes = allNodes;
         this.allEdges = allEdges;
         setAllWeightsToInfinity();
-        run(source);
     }
 
     private void setAllWeightsToInfinity()

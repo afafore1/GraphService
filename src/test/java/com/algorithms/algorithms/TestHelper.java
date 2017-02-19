@@ -24,12 +24,42 @@ class TestHelper {
 
     protected static List<Object> createEdgeList(List<Object> nodeList)
     {
-        List<Object> edgeList = new LinkedList<>();
-
+        //this can be done while adding neighbors no ? I'm lazy !! But this is even longer !!!! ok, refactor later.. why am I commenting to myself ?
+        List<Object> edgeList;
+        Node node1 = (Node) nodeList.get(1);
+        Node node2 = (Node) nodeList.get(2);
+        Node node3 = (Node) nodeList.get(3);
+        Node node4 = (Node) nodeList.get(4);
+        Node node5 = (Node) nodeList.get(5);
+        Node node6 = (Node) nodeList.get(6);
+        Node node7 = (Node) nodeList.get(7);
+        Edge edge1 = createEdge(node1, node2, 4.0);
+        Edge edge2 = createEdge(node1, node3, 3.0);
+        Edge edge3 = createEdge(node1, node5, 7.0);
+        Edge edge4 = createEdge(node2, node3, 6.0);
+        Edge edge5 = createEdge(node2, node4, 5.0);
+        Edge edge6 = createEdge(node3, node4, 11.0);
+        Edge edge7 = createEdge(node3, node5, 8.0);
+        Edge edge8 = createEdge(node4, node5, 2.0);
+        Edge edge9 = createEdge(node4, node7, 10.0);
+        Edge edge10 = createEdge(node4, node6, 2.0);
+        Edge edge11 = createEdge(node5, node7, 5.0);
+        Edge edge12 = createEdge(node6, node7, 3.0);
+        edgeList = addAllEdges(edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8, edge9, edge10, edge11, edge12);
         return edgeList;
     }
 
-    private static List<Object> createNodeList(HashMap<Integer, Node> nodeMap)
+    private static List<Object> addAllEdges(Edge ... edges)
+    {
+        List<Object> edgeList = new LinkedList<>();
+        for(Edge edge : edges)
+        {
+            edgeList.add(edge);
+        }
+        return edgeList;
+    }
+
+    protected static List<Object> createNodeList(HashMap<Integer, Node> nodeMap)
     {
         List<Object> nodeList = new LinkedList<>();
         for(Integer nodeId : nodeMap.keySet())
@@ -38,7 +68,8 @@ class TestHelper {
         }
         return nodeList;
     }
-    private Edge createEdge(Node source, Node destination, double weight)
+
+    private static Edge createEdge(Node source, Node destination, double weight)
     {
         Edge edge = new Edge();
         edge.setSource(source);
