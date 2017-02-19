@@ -40,11 +40,11 @@ public class Edge {
     @JsonPropertyDescription("Destination node")
     private Object destination;
     /**
-     * Weight of edge between Nodes
+     * cost of taking edge between Nodes
      * 
      */
     @JsonProperty("weight")
-    @JsonPropertyDescription("Weight of edge between Nodes")
+    @JsonPropertyDescription("cost of taking edge between Nodes")
     private Double weight;
     /**
      * Check if this edge has been settled. Used in Dijkstra's algorithm
@@ -107,7 +107,7 @@ public class Edge {
     }
 
     /**
-     * Weight of edge between Nodes
+     * cost of taking edge between Nodes
      * 
      */
     @JsonProperty("weight")
@@ -116,7 +116,7 @@ public class Edge {
     }
 
     /**
-     * Weight of edge between Nodes
+     * cost of taking edge between Nodes
      * 
      */
     @JsonProperty("weight")
