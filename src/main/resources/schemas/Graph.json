@@ -60,7 +60,7 @@
           "description": "Destination node",
           "type": "Node"
         },
-        "cost":
+        "weight":
         {
           "description": "cost of taking edge between Nodes",
           "type": "number"
@@ -76,6 +76,11 @@
     "NodeList":
     {
       "description": "List containing all Nodes in Graph",
+      "type": "array"
+    },
+    "EdgeList":
+    {
+      "description": "List containing all Edges in Graph",
       "type": "array"
     }
   }

@@ -62,7 +62,7 @@
         },
         "weight":
         {
-          "description": "Weight of edge between Nodes",
+          "description": "cost of taking edge between Nodes",
           "type": "number"
         },
         "isSettled":
@@ -76,6 +76,11 @@
     "NodeList":
     {
       "description": "List containing all Nodes in Graph",
+      "type": "array"
+    },
+    "EdgeList":
+    {
+      "description": "List containing all Edges in Graph",
       "type": "array"
     }
   }
