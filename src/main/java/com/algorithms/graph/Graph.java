@@ -2,12 +2,7 @@
 package com.algorithms.graph;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
@@ -50,8 +45,6 @@ public class Graph {
     @JsonProperty("EdgeList")
     @JsonPropertyDescription("List containing all Edges in Graph")
     private List<Object> edgeList = new ArrayList<Object>();
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("Node")
     public Node getNode() {
@@ -134,24 +127,9 @@ public class Graph {
         return ToStringBuilder.reflectionToString(this);
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
-    public Graph withAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-        return this;
-    }
-
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(node).append(edge).append(nodeList).append(edgeList).append(additionalProperties).toHashCode();
+        return new HashCodeBuilder().append(node).append(edge).append(nodeList).append(edgeList).toHashCode();
     }
 
     @Override
@@ -163,7 +141,7 @@ public class Graph {
             return false;
         }
         Graph rhs = ((Graph) other);
-        return new EqualsBuilder().append(node, rhs.node).append(edge, rhs.edge).append(nodeList, rhs.nodeList).append(edgeList, rhs.edgeList).append(additionalProperties, rhs.additionalProperties).isEquals();
+        return new EqualsBuilder().append(node, rhs.node).append(edge, rhs.edge).append(nodeList, rhs.nodeList).append(edgeList, rhs.edgeList).isEquals();
     }
 
 }
