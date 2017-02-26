@@ -1,11 +1,6 @@
 
 package com.algorithms.graph;
 
-import java.util.HashMap;
-import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
@@ -53,8 +48,6 @@ public class Edge {
     @JsonProperty("isSettled")
     @JsonPropertyDescription("Check if this edge has been settled. Used in Dijkstra's algorithm")
     private Boolean isSettled;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * Source node
@@ -157,24 +150,9 @@ public class Edge {
         return ToStringBuilder.reflectionToString(this);
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
-    public Edge withAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-        return this;
-    }
-
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(source).append(destination).append(weight).append(isSettled).append(additionalProperties).toHashCode();
+        return new HashCodeBuilder().append(source).append(destination).append(weight).append(isSettled).toHashCode();
     }
 
     @Override
@@ -186,7 +164,7 @@ public class Edge {
             return false;
         }
         Edge rhs = ((Edge) other);
-        return new EqualsBuilder().append(source, rhs.source).append(destination, rhs.destination).append(weight, rhs.weight).append(isSettled, rhs.isSettled).append(additionalProperties, rhs.additionalProperties).isEquals();
+        return new EqualsBuilder().append(source, rhs.source).append(destination, rhs.destination).append(weight, rhs.weight).append(isSettled, rhs.isSettled).isEquals();
     }
 
 }

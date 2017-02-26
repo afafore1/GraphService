@@ -2,12 +2,7 @@
 package com.algorithms.graph;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
@@ -70,8 +65,6 @@ public class Node {
     @JsonProperty("parent")
     @JsonPropertyDescription("Parent Node")
     private Object parent;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * Node Id
@@ -218,25 +211,10 @@ public class Node {
         return ToStringBuilder.reflectionToString(this);
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
-    public Node withAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-        return this;
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(id).append(xPosition).append(yPosition).append(visited).append(neighbors).append(parent).append(additionalProperties).toHashCode();
-    }
+//    @Override
+//    public int hashCode() {
+//        return new HashCodeBuilder().append(id).append(xPosition).append(yPosition).append(visited).append(neighbors).append(parent).toHashCode();
+//    }
 
     @Override
     public boolean equals(Object other) {
@@ -247,7 +225,7 @@ public class Node {
             return false;
         }
         Node rhs = ((Node) other);
-        return new EqualsBuilder().append(id, rhs.id).append(xPosition, rhs.xPosition).append(yPosition, rhs.yPosition).append(visited, rhs.visited).append(neighbors, rhs.neighbors).append(parent, rhs.parent).append(additionalProperties, rhs.additionalProperties).isEquals();
+        return new EqualsBuilder().append(id, rhs.id).append(xPosition, rhs.xPosition).append(yPosition, rhs.yPosition).append(visited, rhs.visited).append(neighbors, rhs.neighbors).append(parent, rhs.parent).isEquals();
     }
 
 }

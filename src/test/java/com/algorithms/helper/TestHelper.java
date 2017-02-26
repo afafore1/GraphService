@@ -1,4 +1,4 @@
-package com.algorithms.algorithms;
+package com.algorithms.helper;
 
 import com.algorithms.graph.Edge;
 import com.algorithms.graph.Graph;
@@ -10,29 +10,29 @@ import java.util.List;
 /**
  * Created by Ayomitunde on 2/18/2017.
  */
-class TestHelper {
-    protected static Graph createGraph()
+public class TestHelper {
+    public static Graph createGraph()
     {
         Graph graph = new Graph();
         HashMap<Integer, Node> nodeMap = createNodeMap();
         List<Object> nodeList = createNodeList(nodeMap);
-        List<Object> edgeList = createEdgeList(nodeList);
+        List<Object> edgeList = createEdgeList(nodeMap);
         graph.setNodeList(nodeList);
         graph.setEdgeList(edgeList);
         return graph;
     }
 
-    protected static List<Object> createEdgeList(List<Object> nodeList)
+    public static List<Object> createEdgeList(HashMap<Integer, Node> nodeHashMap)
     {
         //this can be done while adding neighbors no ? I'm lazy !! But this is even longer !!!! ok, refactor later.. why am I commenting to myself ?
         List<Object> edgeList;
-        Node node1 = (Node) nodeList.get(1);
-        Node node2 = (Node) nodeList.get(2);
-        Node node3 = (Node) nodeList.get(3);
-        Node node4 = (Node) nodeList.get(4);
-        Node node5 = (Node) nodeList.get(5);
-        Node node6 = (Node) nodeList.get(6);
-        Node node7 = (Node) nodeList.get(7);
+        Node node1 = nodeHashMap.get(1);
+        Node node2 = nodeHashMap.get(2);
+        Node node3 = nodeHashMap.get(3);
+        Node node4 = nodeHashMap.get(4);
+        Node node5 = nodeHashMap.get(5);
+        Node node6 = nodeHashMap.get(6);
+        Node node7 = nodeHashMap.get(7);
         Edge edge1 = createEdge(node1, node2, 4.0);
         Edge edge2 = createEdge(node1, node3, 3.0);
         Edge edge3 = createEdge(node1, node5, 7.0);
@@ -59,7 +59,7 @@ class TestHelper {
         return edgeList;
     }
 
-    protected static List<Object> createNodeList(HashMap<Integer, Node> nodeMap)
+    public static List<Object> createNodeList(HashMap<Integer, Node> nodeMap)
     {
         List<Object> nodeList = new LinkedList<>();
         for(Integer nodeId : nodeMap.keySet())
@@ -84,6 +84,9 @@ class TestHelper {
         Node node = new Node();
         node.setId(id);
         node.setVisited(false);
+        node.setXPosition((int)Math.random());
+        node.setYPosition((int)Math.random());
+        node.setParent(node); // initially set to itself
         return node;
     }
 
@@ -107,7 +110,7 @@ class TestHelper {
         return nodeMap;
     }
 
-    protected static HashMap<Integer, Node> createNodeMap()
+    public static HashMap<Integer, Node> createNodeMap()
     {
         HashMap<Integer, Node> nodeMap;
         Node node1 = createNode(1);
