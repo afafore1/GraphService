@@ -11,7 +11,6 @@ import java.util.List;
  */
 public class Dijkstra {
     private HashSet<Node> settledNodes;
-    private HashMap<Node, Double> costToNode;
     private HashMap<Node, Double> costToUnsettledNodes;
     private HashSet<Node> allNodes;
     private HashSet<Edge> allEdges;
@@ -23,21 +22,27 @@ public class Dijkstra {
         this.source = source;
         this.destination = destination;
         settledNodes = new HashSet<>();
-        costToNode = new HashMap<>();
         this.allNodes = allNodes;
         this.allEdges = allEdges;
-        setAllWeightsToInfinity();
+        costToUnsettledNodes = new HashMap<>();
+        initializeNodes();
     }
 
-    private void setAllWeightsToInfinity()
+    /*
+    Set all node parents to null.
+    Source Node parent is itself, and cost to source is 0 since it's start position
+    All other node cost should be infinity.
+     */
+    private void initializeNodes()
     {
         for(Node node : allNodes)
         {
-            costToNode.put(node, Double.MAX_VALUE);
+            costToUnsettledNodes.put(node, Double.MAX_VALUE);
+            node.setParent(null);
         }
         // set cost to initial node to 0
-        costToNode.put(source, 0.0);
-        costToUnsettledNodes = new HashMap<>(costToNode);
+        costToUnsettledNodes.put(source, 0.0);
+        source.setParent(source);
     }
 
     // There should be an easy/faster way to get edges
@@ -56,24 +61,19 @@ public class Dijkstra {
     // should be replaced with min heap
     private Node getSmallestUnSettledNodeCost()
     {
-        double minVal = Double.MIN_VALUE;
+        double minVal = Double.MAX_VALUE;
+        Node minNode = null;
         for(Node node : costToUnsettledNodes.keySet())
         {
             double costToNode = costToUnsettledNodes.get(node);
             if(minVal > costToNode)
             {
                 minVal = costToNode;
+                minNode = node;
             }
         }
 
-        for(Node node : costToUnsettledNodes.keySet())
-        {
-            if(costToUnsettledNodes.get(node) == minVal)
-            {
-                return node;
-            }
-        }
-        return null;
+        return minNode;
     }
 
     public void run(Node current)
@@ -84,15 +84,15 @@ public class Dijkstra {
             Node node = (Node) obj;
             if(!settledNodes.contains(node))
             {
-                double costToCurrent = costToNode.get(current);
+                double costToCurrent = costToUnsettledNodes.get(current);
                 Edge edgeBetweenNodes = getEdge(current, node);
 
                 if(edgeBetweenNodes != null) // this should not happen!
                 {
                     double costToCurrentsNeighbor = costToCurrent + edgeBetweenNodes.getWeight();
-                    if(costToNode.get(node) > costToCurrentsNeighbor)
+                    if(costToUnsettledNodes.get(node) > costToCurrentsNeighbor)
                     {
-                        costToNode.put(node, costToCurrentsNeighbor);
+                        costToUnsettledNodes.put(node, costToCurrentsNeighbor);
                         node.setParent(current); // set it's parent to current node
                     }
                 }
@@ -102,19 +102,24 @@ public class Dijkstra {
         // add to settled nodes
         settledNodes.add(current);
         costToUnsettledNodes.remove(current);
-        // get node smallest cost that is not yet settled
-        Node nextCurrent = getSmallestUnSettledNodeCost();
-        if(nextCurrent.equals(destination))
+
+        // We are done if all nodes are settled.
+        if(costToUnsettledNodes.isEmpty())
         {
-            // do nothing
-        }
-        else if(nextCurrent != null)
-        {
-            run(nextCurrent);
+            System.out.println("Algorithm is done running!"); // done, print path ?
         }
         else
         {
-            System.exit(1); // this should not happen. Perhaps, the graph is disconnected
+            // get node smallest cost that is not yet settled
+            Node nextCurrent = getSmallestUnSettledNodeCost();
+            if(nextCurrent.equals(destination))
+            {
+                // do nothing
+            }
+            else if(nextCurrent != null)
+            {
+                run(nextCurrent);
+            }
         }
     }
 }
