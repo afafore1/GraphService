@@ -1,6 +1,7 @@
 package com.algorithms.algorithms;
 
 import com.algorithms.graph.Edge;
+import com.algorithms.graph.Graph;
 import com.algorithms.graph.Node;
 import com.algorithms.helper.TestHelper;
 import org.junit.Test;
@@ -17,6 +18,7 @@ import static org.junit.Assert.*;
 public class DijkstraTest {
     @Test
     public void run() throws Exception {
+        Graph graph = TestHelper.createGraph();
         HashMap<Integer, Node> nodeHashMap = TestHelper.createNodeMap();
         Node source = nodeHashMap.get(1);
         Node node2 = nodeHashMap.get(2);
@@ -25,9 +27,9 @@ public class DijkstraTest {
         Node node5 = nodeHashMap.get(5);
         Node node6 = nodeHashMap.get(6);
         Node node7 = nodeHashMap.get(7);
-        List<Object> nodeList = TestHelper.createNodeList(nodeHashMap);
+        List<Object> nodeList = graph.getNodeList();
         HashSet<Node> nodeSet = new HashSet(nodeList);
-        HashSet<Edge> edgeSet  = new HashSet(TestHelper.createEdgeList(nodeHashMap));
+        HashSet<Edge> edgeSet  = new HashSet(graph.getEdgeList());
 
         Dijkstra dijkstra = new Dijkstra(source, node6, nodeSet, edgeSet);
         dijkstra.run(source);

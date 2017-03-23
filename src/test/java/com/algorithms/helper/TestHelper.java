@@ -11,18 +11,21 @@ import java.util.List;
  * Created by Ayomitunde on 2/18/2017.
  */
 public class TestHelper {
+    static private List<Object> nodeList;
+    static private List<Object> edgeList;
+    static HashMap<Integer, Node> nodeMap;
     public static Graph createGraph()
     {
         Graph graph = new Graph();
-        HashMap<Integer, Node> nodeMap = createNodeMap();
-        List<Object> nodeList = createNodeList(nodeMap);
-        List<Object> edgeList = createEdgeList(nodeMap);
+        nodeMap = createNodeMap();
+        nodeList = createNodeList(nodeMap);
+        edgeList = createEdgeList(nodeMap);
         graph.setNodeList(nodeList);
         graph.setEdgeList(edgeList);
         return graph;
     }
 
-    public static List<Object> createEdgeList(HashMap<Integer, Node> nodeHashMap)
+    private static List<Object> createEdgeList(HashMap<Integer, Node> nodeHashMap)
     {
         //this can be done while adding neighbors no ? I'm lazy !! But this is even longer !!!! ok, refactor later.. why am I commenting to myself ?
         List<Object> edgeList;
@@ -59,7 +62,7 @@ public class TestHelper {
         return edgeList;
     }
 
-    public static List<Object> createNodeList(HashMap<Integer, Node> nodeMap)
+    private static List<Object> createNodeList(HashMap<Integer, Node> nodeMap)
     {
         List<Object> nodeList = new LinkedList<>();
         for(Integer nodeId : nodeMap.keySet())
