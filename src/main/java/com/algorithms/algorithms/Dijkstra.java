@@ -1,6 +1,7 @@
 package com.algorithms.algorithms;
 
 import com.algorithms.graph.Edge;
+import com.algorithms.graph.Graph;
 import com.algorithms.graph.Node;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,12 +13,12 @@ import java.util.List;
 public class Dijkstra {
     private HashSet<Node> settledNodes;
     private HashMap<Node, Double> costToUnsettledNodes;
-    private HashSet<Node> allNodes;
-    private HashSet<Edge> allEdges;
+    private HashSet<Object> allNodes;
+    private HashSet<Object> allEdges;
     Node source;
     Node destination;
 
-    public Dijkstra(Node source, Node destination, HashSet<Node> allNodes, HashSet<Edge> allEdges)
+    public Dijkstra(Node source, Node destination, HashSet<Object> allNodes, HashSet<Object> allEdges)
     {
         this.source = source;
         this.destination = destination;
@@ -35,28 +36,32 @@ public class Dijkstra {
      */
     private void initializeNodes()
     {
-        for(Node node : allNodes)
+        for(Object object : allNodes)
         {
+            Node node = (Node)object;
             costToUnsettledNodes.put(node, Double.MAX_VALUE);
             node.setParent(null);
         }
         // set cost to initial node to 0
         costToUnsettledNodes.put(source, 0.0);
-        source.setParent(source);
+        source.setParent(null); // the source doesn't have a parent since we start from that. This is also to avoid stackoverflow exception
     }
 
     // There should be an easy/faster way to get edges
-    private Edge getEdge(Node source, Node destination)
-    {
-        for(Edge edge : allEdges)
-        {
-            if(edge.getSource().equals(source) && edge.getDestination().equals(destination))
-            {
-                return edge;
-            }
-        }
-        return null;
-    }
+//    private Edge getEdge(Node source, Node destination)
+//    {
+//        for(Object object : allEdges)
+//        {
+//            Edge edge = (Edge) object;
+//            Node edgeSource = (Node) edge.getSource();
+//            Node edgeDestination = (Node) edge.getDestination();
+//            if(edgeSource.getId().equals(source.getId()) && edgeDestination.getId().equals(destination.getId()))
+//            {
+//                return edge;
+//            }
+//        }
+//        return null;
+//    }
 
     // should be replaced with min heap
     private Node getSmallestUnSettledNodeCost()
@@ -76,7 +81,7 @@ public class Dijkstra {
         return minNode;
     }
 
-    public void run(Node current)
+    public void run(Graph graph, Node current)
     {
         List<Object> currentsNeighbors = current.getNeighbors();
         for(Object obj : currentsNeighbors)
@@ -85,15 +90,18 @@ public class Dijkstra {
             if(!settledNodes.contains(node))
             {
                 double costToCurrent = costToUnsettledNodes.get(current);
-                Edge edgeBetweenNodes = getEdge(current, node);
+                Edge edgeBetweenNodes = graph.getEdge(current, node);
 
                 if(edgeBetweenNodes != null) // this should not happen!
                 {
                     double costToCurrentsNeighbor = costToCurrent + edgeBetweenNodes.getWeight();
-                    if(costToUnsettledNodes.get(node) > costToCurrentsNeighbor)
+                    if(costToUnsettledNodes.containsKey(node))
                     {
-                        costToUnsettledNodes.put(node, costToCurrentsNeighbor);
-                        node.setParent(current); // set it's parent to current node
+                        if(costToUnsettledNodes.get(node) > costToCurrentsNeighbor)
+                        {
+                            costToUnsettledNodes.put(node, costToCurrentsNeighbor);
+                            node.setParent(current); // set it's parent to current node
+                        }
                     }
                 }
 
@@ -118,7 +126,7 @@ public class Dijkstra {
             }
             else if(nextCurrent != null)
             {
-                run(nextCurrent);
+                run(graph, nextCurrent);
             }
         }
     }

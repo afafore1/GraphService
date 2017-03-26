@@ -9,8 +9,16 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+
+/**
+ * Edge
+ * <p>
+ * 
+ * 
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+    "id",
     "source",
     "destination",
     "weight",
@@ -18,6 +26,13 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 })
 public class Edge {
 
+    /**
+     * Node Id
+     * 
+     */
+    @JsonProperty("id")
+    @JsonPropertyDescription("Node Id")
+    private Integer id;
     /**
      * Source node
      * (Required)
@@ -48,6 +63,29 @@ public class Edge {
     @JsonProperty("isSettled")
     @JsonPropertyDescription("Check if this edge has been settled. Used in Dijkstra's algorithm")
     private Boolean isSettled;
+
+    /**
+     * Node Id
+     * 
+     */
+    @JsonProperty("id")
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * Node Id
+     * 
+     */
+    @JsonProperty("id")
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Edge withId(Integer id) {
+        this.id = id;
+        return this;
+    }
 
     /**
      * Source node
@@ -152,7 +190,7 @@ public class Edge {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(source).append(destination).append(weight).append(isSettled).toHashCode();
+        return new HashCodeBuilder().append(id).append(source).append(destination).append(weight).append(isSettled).toHashCode();
     }
 
     @Override
@@ -164,7 +202,7 @@ public class Edge {
             return false;
         }
         Edge rhs = ((Edge) other);
-        return new EqualsBuilder().append(source, rhs.source).append(destination, rhs.destination).append(weight, rhs.weight).append(isSettled, rhs.isSettled).isEquals();
+        return new EqualsBuilder().append(id, rhs.id).append(source, rhs.source).append(destination, rhs.destination).append(weight, rhs.weight).append(isSettled, rhs.isSettled).isEquals();
     }
 
 }

@@ -2,15 +2,7 @@
 package com.algorithms.graph;
 
 import java.util.ArrayList;
-import java.util.List;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-
+import java.util.HashMap;
 
 /**
  * Graph
@@ -18,130 +10,98 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * 
  * 
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "Node",
-    "Edge",
-    "NodeList",
-    "EdgeList"
-})
-public class Graph {
-
-    @JsonProperty("Node")
-    private Node node;
-    @JsonProperty("Edge")
-    private Edge edge;
-    /**
-     * List containing all Nodes in Graph
-     * 
-     */
-    @JsonProperty("NodeList")
-    @JsonPropertyDescription("List containing all Nodes in Graph")
-    private List<Object> nodeList = new ArrayList<Object>();
-    /**
-     * List containing all Edges in Graph
-     * 
-     */
-    @JsonProperty("EdgeList")
-    @JsonPropertyDescription("List containing all Edges in Graph")
-    private List<Object> edgeList = new ArrayList<Object>();
-
-    @JsonProperty("Node")
-    public Node getNode() {
-        return node;
+public class Graph
+{
+    private HashMap<Integer, Node> nodeHashMap;
+    private HashMap<String, Edge> edgeHashMap;
+    private boolean isBidirectional = false;
+    public Graph()
+    {
+        nodeHashMap = new HashMap<>();
+        edgeHashMap = new HashMap<>();
     }
 
-    @JsonProperty("Node")
-    public void setNode(Node node) {
-        this.node = node;
+    public void isBidirectional()
+    {
+        isBidirectional = true;
     }
 
-    public Graph withNode(Node node) {
-        this.node = node;
-        return this;
-    }
-
-    @JsonProperty("Edge")
-    public Edge getEdge() {
-        return edge;
-    }
-
-    @JsonProperty("Edge")
-    public void setEdge(Edge edge) {
-        this.edge = edge;
-    }
-
-    public Graph withEdge(Edge edge) {
-        this.edge = edge;
-        return this;
-    }
-
-    /**
-     * List containing all Nodes in Graph
-     * 
-     */
-    @JsonProperty("NodeList")
-    public List<Object> getNodeList() {
-        return nodeList;
-    }
-
-    /**
-     * List containing all Nodes in Graph
-     * 
-     */
-    @JsonProperty("NodeList")
-    public void setNodeList(List<Object> nodeList) {
-        this.nodeList = nodeList;
-    }
-
-    public Graph withNodeList(List<Object> nodeList) {
-        this.nodeList = nodeList;
-        return this;
-    }
-
-    /**
-     * List containing all Edges in Graph
-     * 
-     */
-    @JsonProperty("EdgeList")
-    public List<Object> getEdgeList() {
-        return edgeList;
-    }
-
-    /**
-     * List containing all Edges in Graph
-     * 
-     */
-    @JsonProperty("EdgeList")
-    public void setEdgeList(List<Object> edgeList) {
-        this.edgeList = edgeList;
-    }
-
-    public Graph withEdgeList(List<Object> edgeList) {
-        this.edgeList = edgeList;
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(node).append(edge).append(nodeList).append(edgeList).toHashCode();
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
+    public void createNode(int id)
+    {
+        if(!nodeHashMap.containsKey(id))
+        {
+            Node node = new Node();
+            node.setId(id);
+            node.setVisited(false);
+            node.setXPosition((int)Math.random());
+            node.setYPosition((int)Math.random());
+            node.setParent(null); // initially set to null
+            nodeHashMap.put(id, node);
         }
-        if ((other instanceof Graph) == false) {
-            return false;
-        }
-        Graph rhs = ((Graph) other);
-        return new EqualsBuilder().append(node, rhs.node).append(edge, rhs.edge).append(nodeList, rhs.nodeList).append(edgeList, rhs.edgeList).isEquals();
     }
 
+    public void removeNode(int id)
+    {
+        nodeHashMap.remove(id);
+    }
+
+    public Node getNode(int id)
+    {
+        return nodeHashMap.get(id);
+    }
+
+    public void setNodeNeighbors(int id, int ... ints)
+    {
+        Node currentNode = nodeHashMap.get(id);
+        //List<Object> currentNodeNeighbors = currentNode.getNeighbors();
+        for(int x : ints)
+        {
+            Node neighbor = nodeHashMap.get(x);
+            currentNode.getNeighbors().add(neighbor);
+            if(isBidirectional)
+            {
+                if(!neighbor.getNeighbors().contains(currentNode))
+                {
+                    neighbor.getNeighbors().add(currentNode);
+                }
+            }
+        }
+    }
+
+    public void createEdge(Node source, Node destination, double weight)
+    {
+        Edge edge = new Edge();
+        edge.setSource(source);
+        edge.setDestination(destination);
+        edge.setWeight(weight);
+        edge.setIsSettled(false);
+        String edgeId = ""+source.getId()+""+destination.getId();
+        edge.setId(Integer.parseInt(edgeId));
+        edgeHashMap.put(edgeId, edge);
+    }
+
+    public void removeEdge(String edgeId)
+    {
+        edgeHashMap.remove(edgeId);
+    }
+
+    public Edge getEdge(Node source, Node destination)
+    {
+        String edgeId = ""+source.getId()+""+destination.getId();
+        return edgeHashMap.get(edgeId);
+    }
+
+    public ArrayList<Node> getNodeList()
+    {
+        ArrayList<Node> allNodes =  new ArrayList<>();
+        allNodes.addAll(nodeHashMap.values());
+        return allNodes;
+    }
+
+    public ArrayList<Edge> getEdgeList()
+    {
+        ArrayList<Edge> allEdges = new ArrayList<>();
+        allEdges.addAll(edgeHashMap.values());
+        return allEdges;
+    }
 }

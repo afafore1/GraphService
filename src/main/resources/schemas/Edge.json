@@ -1,0 +1,34 @@
+{
+  "title": "Edge",
+  "type": "object",
+  "properties":
+  {
+    "id":
+    {
+      "description": "Node Id",
+      "type": "integer"
+    },
+    "source":
+    {
+      "description": "Source node",
+      "type": "Node"
+    },
+    "destination":
+    {
+      "description": "Destination node",
+      "type": "Node"
+    },
+    "weight":
+    {
+      "description": "cost of taking edge between Nodes",
+      "type": "number"
+    },
+    "isSettled":
+    {
+      "description": "Check if this edge has been settled. Used in Dijkstra's algorithm",
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false,
+  "required": ["source", "destination"]
+}
