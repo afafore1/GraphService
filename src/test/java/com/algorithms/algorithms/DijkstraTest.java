@@ -1,17 +1,14 @@
 package com.algorithms.algorithms;
 
-import com.algorithms.graph.Edge;
 import com.algorithms.graph.Graph;
 import com.algorithms.graph.Node;
 import com.algorithms.helper.TestHelper;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Ayomitunde on 2/18/2017.

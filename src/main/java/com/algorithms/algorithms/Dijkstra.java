@@ -47,22 +47,6 @@ public class Dijkstra {
         source.setParent(null); // the source doesn't have a parent since we start from that. This is also to avoid stackoverflow exception
     }
 
-    // There should be an easy/faster way to get edges
-//    private Edge getEdge(Node source, Node destination)
-//    {
-//        for(Object object : allEdges)
-//        {
-//            Edge edge = (Edge) object;
-//            Node edgeSource = (Node) edge.getSource();
-//            Node edgeDestination = (Node) edge.getDestination();
-//            if(edgeSource.getId().equals(source.getId()) && edgeDestination.getId().equals(destination.getId()))
-//            {
-//                return edge;
-//            }
-//        }
-//        return null;
-//    }
-
     // should be replaced with min heap
     private Node getSmallestUnSettledNodeCost()
     {
