@@ -2,6 +2,7 @@
 package com.algorithms.graph;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -53,7 +54,6 @@ public class Graph
     public void setNodeNeighbors(int id, int ... ints)
     {
         Node currentNode = nodeHashMap.get(id);
-        //List<Object> currentNodeNeighbors = currentNode.getNeighbors();
         for(int x : ints)
         {
             Node neighbor = nodeHashMap.get(x);
@@ -103,5 +103,30 @@ public class Graph
         ArrayList<Edge> allEdges = new ArrayList<>();
         allEdges.addAll(edgeHashMap.values());
         return allEdges;
+    }
+
+    public ArrayList<Node> getShortestPath(Node sourceNode, Node destinationNode)
+    {
+        ArrayList<Node> shortestPath = new ArrayList<>();
+        Node parent = (Node)destinationNode.getParent();
+        shortestPath.add(destinationNode);
+        shortestPath.add(parent);
+        while(parent != sourceNode)
+        {
+            parent = (Node)parent.getParent();
+            shortestPath.add(parent);
+        }
+        Collections.reverse(shortestPath);
+        return shortestPath;
+    }
+
+    public ArrayList<Integer> printShortestPath(ArrayList<Node> shortestPath)
+    {
+        ArrayList<Integer> path = new ArrayList<>();
+        for(Node node : shortestPath)
+        {
+            path.add(node.getId());
+        }
+        return path;
     }
 }
