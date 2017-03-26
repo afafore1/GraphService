@@ -13,10 +13,17 @@ import static org.junit.Assert.*;
 public class GeneticAlgorithmTest {
     @Test
     public void run() throws Exception {
-        Graph graph = TestHelper.createCompletGraph(10);
+        Graph graph = TestHelper.createCompleteGraph(10);
         Node startNode = graph.getNode(0);
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(graph, startNode, 10);
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(graph, 10);
+        geneticAlgorithm.initializePopulation(startNode, graph.getNodeList());
         geneticAlgorithm.run();
+        int numberOfGenerations = 100;
+        for(int i = 0; i < numberOfGenerations; i++)
+        {
+
+        }
+        geneticAlgorithm.getBestPath();
     }
 
 }
