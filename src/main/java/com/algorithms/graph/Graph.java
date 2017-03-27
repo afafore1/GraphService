@@ -105,18 +105,15 @@ public class Graph
         return allEdges;
     }
 
-    public ArrayList<Node> getShortestPath(Node sourceNode, Node destinationNode)
+    public HashMap<Node, Node> getShortestPath(Node sourceNode, Node destinationNode)
     {
-        ArrayList<Node> shortestPath = new ArrayList<>();
+        HashMap<Node, Node> shortestPath = new HashMap<>();
         Node parent = (Node)destinationNode.getParent();
-        shortestPath.add(destinationNode);
-        shortestPath.add(parent);
+        shortestPath.put(parent, destinationNode);
         while(parent != sourceNode)
         {
-            parent = (Node)parent.getParent();
-            shortestPath.add(parent);
+            shortestPath.put(parent, (Node) parent.getParent());
         }
-        Collections.reverse(shortestPath);
         return shortestPath;
     }
 
