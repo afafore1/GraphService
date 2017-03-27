@@ -4,11 +4,10 @@ import com.algorithms.graph.Edge;
 import com.algorithms.graph.Graph;
 import com.algorithms.graph.Node;
 import generators.Parser;
+import org.apache.commons.lang.ArrayUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.IntStream;
 
 /**
  * Created by Ayomitunde on 2/18/2017.
@@ -21,6 +20,14 @@ public class TestHelper {
         createNodes(7, graph); // passing object is by reference
         createNeighbors(graph);
         createEdges(graph);
+        return graph;
+    }
+
+    public static Graph createCompleteGraph(int size)
+    {
+        Graph graph = new Graph();
+        createNodes(size, graph);
+        createCompleteNeighbors(graph, size);
         return graph;
     }
 
@@ -41,6 +48,31 @@ public class TestHelper {
         graph.setNodeNeighbors(3, 4,5,6);
         graph.setNodeNeighbors(4, 6);
         graph.setNodeNeighbors(5, 6);
+    }
+
+    private static void createCompleteNeighbors(Graph graph, int size)
+    {
+        graph.isBidirectional();
+        for(int i = 0; i < size; i++)
+        {
+            int [] neighbors = createNeighbors(i, size);
+            graph.setNodeNeighbors(i, neighbors);
+            for(int x : neighbors)
+            {
+                graph.createEdge(graph.getNode(i), graph.getNode(x), (Math.random() * 120));
+            }
+        }
+    }
+
+    private static int [] createNeighbors(int currentNode, int size)
+    {
+        int[] neighbors = new int[size-1];
+        int index = 0;
+        for(int i = 0; i < size; i++)
+        {
+            if(i != currentNode) neighbors[index++] = i;
+        }
+        return neighbors;
     }
 
     private static void createEdges(Graph graph)
