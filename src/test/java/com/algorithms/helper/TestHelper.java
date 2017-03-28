@@ -13,11 +13,10 @@ import java.util.stream.IntStream;
  * Created by Ayomitunde on 2/18/2017.
  */
 public class TestHelper {
-
+    static final String googleDistanceKey = "AIzaSyBfp-zVuuKZg7xeit-oqvn9uKc5VAXewUg";
     public static Graph createGraph()
     {
-        Graph graph = new Graph();
-        createNodes(7, graph); // passing object is by reference
+        Graph graph = createGraphNodes(7);
         createNeighbors(graph);
         createEdges(graph);
         return graph;
@@ -25,10 +24,28 @@ public class TestHelper {
 
     public static Graph createCompleteGraph(int size)
     {
-        Graph graph = new Graph();
-        createNodes(size, graph);
+        Graph graph = createGraphNodes(size);
         createCompleteNeighbors(graph, size);
         return graph;
+    }
+
+    public static Graph createStateGraph(int size)
+    {
+        Graph graph = createGraphNodes(size);
+        createCompleteStateNeighbors(graph, size);
+        return graph;
+    }
+
+    private static Graph createGraphNodes(int size)
+    {
+        Graph graph = new Graph();
+        createNodes(size, graph);
+        return graph;
+    }
+
+    private static void createNodes(Graph graph)
+    {
+
     }
 
     private static void createNodes(int numberOfNodes, Graph graph)
@@ -62,6 +79,11 @@ public class TestHelper {
                 graph.createEdge(graph.getNode(i), graph.getNode(x), (Math.random() * 120));
             }
         }
+    }
+
+    private static void createCompleteStateNeighbors(Graph graph, int size)
+    {
+        graph.isBidirectional();
     }
 
     private static int [] createNeighbors(int currentNode, int size)

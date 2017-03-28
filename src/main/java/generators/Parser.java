@@ -15,6 +15,7 @@ import java.util.HashSet;
  */
 public class Parser {
     private static final String SCHEMA_DIR = "schemas/";
+    private static final String CLASS_DATA_DIR = "classData/";
     private static HashSet<File> JSON_FILES;
     private static JCodeModel codeModel = new JCodeModel();
     static
