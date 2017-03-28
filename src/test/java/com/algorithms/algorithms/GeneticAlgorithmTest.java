@@ -17,13 +17,13 @@ public class GeneticAlgorithmTest {
         Node startNode = graph.getNode(0);
         GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(graph, 10);
         geneticAlgorithm.initializePopulation(startNode, graph.getNodeList());
-        geneticAlgorithm.run();
         int numberOfGenerations = 100;
         for(int i = 0; i < numberOfGenerations; i++)
         {
-
+            geneticAlgorithm.run();
+            System.out.println(geneticAlgorithm.getPathCost(geneticAlgorithm.getBestPath()));
         }
-        geneticAlgorithm.getBestPath();
+        //geneticAlgorithm.getBestPath();
     }
 
 }

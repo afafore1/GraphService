@@ -48,15 +48,7 @@ public class GeneticAlgorithm {
         for(String populationId : population.keySet())
         {
             ArrayList<Node> group = population.get(populationId);
-            double groupWeight = 0.0;
-            for(int i = 0; i < group.size(); i++)
-            {
-                Node source = group.get(i);
-                int next = i+1;
-                Node dest = next < group.size() ? group.get(next) : group.get(0);
-                Edge connectingEdge = graph.getEdge(source, dest);
-                groupWeight += connectingEdge.getWeight();
-            }
+            double groupWeight = getPathCost(group);
             fitness.put(populationId, groupWeight);
         }
         //fitJson.addProperty("fitness", fitness.toString());
@@ -88,9 +80,9 @@ public class GeneticAlgorithm {
             ArrayList<Node> groupB = population.get(groupIdB);
 
             ArrayList<Node> newGroup = makeNewGroup(groupA, groupB);
-            System.out.println("GroupA ->"); printList(groupA);
-            System.out.println("GroupB ->"); printList(groupB);
-            System.out.println("NewGroup ->"); printList(newGroup);
+//            System.out.println("GroupA ->"); printList(groupA);
+//            System.out.println("GroupB ->"); printList(groupB);
+//            System.out.println("NewGroup ->"); printList(newGroup);
             replaceGroup(newGroup);
         }
     }
@@ -132,7 +124,7 @@ public class GeneticAlgorithm {
                 }
             }
         }
-            formedGroupList = new ArrayList<>(Arrays.asList(formedGroup)); // recreating list all the time. refactor ?
+        formedGroupList = new ArrayList<>(Arrays.asList(formedGroup)); // recreating list all the time. refactor ?
         return formedGroupList;
     }
 
@@ -157,13 +149,27 @@ public class GeneticAlgorithm {
         return bestPathList;
     }
 
+    public double getPathCost(ArrayList<Node> group)
+    {
+        double pathCost = 0.0;
+        for(int i = 0; i < group.size(); i++)
+        {
+            Node source = group.get(i);
+            int next = i+1;
+            Node dest = next < group.size() ? group.get(next) : group.get(0);
+            Edge connectingEdge = graph.getEdge(source, dest);
+            pathCost += connectingEdge.getWeight();
+        }
+        return pathCost;
+    }
+
     public void run()
     {
-        HashMap<String, Double> fitness = calculateFitness();
-        System.out.println(fitness);
+        calculateFitness();
+        //System.out.println(fitness);
         String [] breeders = getBreeders();
         breed(breeders);
-        printPopulation();
+        //printPopulation();
     }
 
     void printPopulation()
