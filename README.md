@@ -10,7 +10,7 @@
 - Bfs
 - Dfs
 - Dijkstra
+- Genetic algorithm
 
 **Coming Soon**
-- Genetic algorithm
 - Simulated Annealing
