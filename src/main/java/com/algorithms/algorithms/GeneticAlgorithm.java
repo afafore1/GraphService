@@ -78,11 +78,7 @@ public class GeneticAlgorithm {
             int nextId = i+1;
             String groupIdB = nextId < breeders.length ? breeders[nextId] : breeders[0];
             ArrayList<Node> groupB = population.get(groupIdB);
-
             ArrayList<Node> newGroup = makeNewGroup(groupA, groupB);
-//            System.out.println("GroupA ->"); printList(groupA);
-//            System.out.println("GroupB ->"); printList(groupB);
-//            System.out.println("NewGroup ->"); printList(newGroup);
             replaceGroup(newGroup);
         }
     }
@@ -101,8 +97,9 @@ public class GeneticAlgorithm {
     private ArrayList<Node> makeNewGroup(ArrayList<Node> groupA, ArrayList<Node> groupB)
     {
         ArrayList<Node> formedGroupList;
-        Node [] formedGroup = new Node[groupA.size()];
         int groupLen = groupA.size();
+        Node [] formedGroup = new Node[groupA.size()];
+        // exclude modifying start node
         for(int i = 0; i < groupLen; i++)
         {
             if(Math.random() < .5)
@@ -111,19 +108,22 @@ public class GeneticAlgorithm {
             }
         }
 
-        for(int i = 0; i < groupLen; i++)
+        for(int i = 1; i < groupLen; i++)
         {
             if(Arrays.asList(formedGroup).get(i) == null)
             {
                 for(Node node : groupB)
                 {
-                    if(!Arrays.asList(formedGroup).contains(node))
+                    if(!Arrays.asList(formedGroup).contains(node) && node.getId() != groupA.get(0).getId())
                     {
                         formedGroup[i] = node;
+                        break;
                     }
                 }
             }
         }
+        // put startNode in.
+        formedGroup[0] = groupA.get(0);
         formedGroupList = new ArrayList<>(Arrays.asList(formedGroup)); // recreating list all the time. refactor ?
         return formedGroupList;
     }
@@ -157,8 +157,11 @@ public class GeneticAlgorithm {
             Node source = group.get(i);
             int next = i+1;
             Node dest = next < group.size() ? group.get(next) : group.get(0);
-            Edge connectingEdge = graph.getEdge(source, dest);
-            pathCost += connectingEdge.getWeight();
+            if(!source.equals(dest))
+            {
+                Edge connectingEdge = graph.getEdge(source, dest);
+                pathCost += connectingEdge.getWeight();
+            }
         }
         return pathCost;
     }
@@ -184,10 +187,11 @@ public class GeneticAlgorithm {
 
     void printList(ArrayList<Node> nodes)
     {
+        String path = "-";
         for(Node node : nodes)
         {
-            System.out.print(node.getId());
+            path+=node.getValue() +"-";
         }
-        System.out.println();
+        System.out.println(path);
     }
 }

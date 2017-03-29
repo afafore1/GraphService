@@ -11,7 +11,7 @@ import java.net.URL;
  * Created by Ayomitunde on 3/28/2017.
  */
 public class Requester {
-    public String sendRequest(URL url)
+    public static String sendRequest(URL url)
     {
         try
         {

@@ -27,12 +27,19 @@ public class Graph
         isBidirectional = true;
     }
 
-    public void createNode(int id)
+    public void createNode(int id, String value)
     {
         if(!nodeHashMap.containsKey(id))
         {
             Node node = new Node();
             node.setId(id);
+            if(value == null)
+            {
+                node.setValue(String.valueOf(id));
+            }else
+            {
+                node.setValue(value);
+            }
             node.setVisited(false);
             node.setXPosition((int)Math.random());
             node.setYPosition((int)Math.random());

@@ -246,7 +246,7 @@ public class Node {
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this);
+        return this.getId()+""+this.getValue()+""+this.getXPosition()+""+this.getYPosition()+""+this.getVisited()+""+this.getNeighbors();
     }
 
 //    @Override
