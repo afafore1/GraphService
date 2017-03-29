@@ -21,6 +21,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
+    "value",
     "xPosition",
     "yPosition",
     "visited",
@@ -37,6 +38,13 @@ public class Node {
     @JsonProperty("id")
     @JsonPropertyDescription("Node Id")
     private Integer id;
+    /**
+     * The value gives a description of what this node is
+     * 
+     */
+    @JsonProperty("value")
+    @JsonPropertyDescription("The value gives a description of what this node is")
+    private String value;
     /**
      * x coordinate
      * 
@@ -95,6 +103,29 @@ public class Node {
 
     public Node withId(Integer id) {
         this.id = id;
+        return this;
+    }
+
+    /**
+     * The value gives a description of what this node is
+     * 
+     */
+    @JsonProperty("value")
+    public String getValue() {
+        return value;
+    }
+
+    /**
+     * The value gives a description of what this node is
+     * 
+     */
+    @JsonProperty("value")
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public Node withValue(String value) {
+        this.value = value;
         return this;
     }
 
@@ -215,12 +246,12 @@ public class Node {
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this);
+        return this.getId()+""+this.getValue()+""+this.getXPosition()+""+this.getYPosition()+""+this.getVisited()+""+this.getNeighbors();
     }
 
 //    @Override
 //    public int hashCode() {
-//        return new HashCodeBuilder().append(id).append(xPosition).append(yPosition).append(visited).append(neighbors).append(parent).toHashCode();
+//        return new HashCodeBuilder().append(id).append(value).append(xPosition).append(yPosition).append(visited).append(neighbors).append(parent).toHashCode();
 //    }
 
     @Override
@@ -232,7 +263,7 @@ public class Node {
             return false;
         }
         Node rhs = ((Node) other);
-        return new EqualsBuilder().append(id, rhs.id).append(xPosition, rhs.xPosition).append(yPosition, rhs.yPosition).append(visited, rhs.visited).append(neighbors, rhs.neighbors).append(parent, rhs.parent).isEquals();
+        return new EqualsBuilder().append(id, rhs.id).append(value, rhs.value).append(xPosition, rhs.xPosition).append(yPosition, rhs.yPosition).append(visited, rhs.visited).append(neighbors, rhs.neighbors).append(parent, rhs.parent).isEquals();
     }
 
 }

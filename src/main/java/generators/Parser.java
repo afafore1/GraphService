@@ -15,25 +15,33 @@ import java.util.HashSet;
  */
 public class Parser {
     private static final String SCHEMA_DIR = "schemas/";
+    private static final String CLASS_DATA_DIR = "classData/";
     private static HashSet<File> JSON_FILES;
+    private static HashSet<File> DATA_FILES;
     private static JCodeModel codeModel = new JCodeModel();
     static
     {
-        JSON_FILES = getJsonFiles(Parser.class, SCHEMA_DIR);
+        JSON_FILES = getFiles(Parser.class, SCHEMA_DIR);
+        DATA_FILES = getFiles(Parser.class, CLASS_DATA_DIR);
     }
 
 
-    private static HashSet<File> getJsonFiles(Class<?> passedInClass, String schemaDir)
+    private static HashSet<File> getFiles(Class<?> passedInClass, String dir)
     {
-        HashSet<File> jsonFiles = new HashSet<>();
+        HashSet<File> files = new HashSet<>();
         ClassLoader classLoader = passedInClass.getClassLoader();
-        File folder = new File(classLoader.getResource(schemaDir).getFile());
+        File folder = new File(classLoader.getResource(dir).getFile());
         File [] listOfFiles = folder.listFiles();
         for(File f : listOfFiles)
         {
-            jsonFiles.add(f);
+            files.add(f);
         }
-        return  jsonFiles;
+        return files;
+    }
+
+    public static HashSet<File> getDataFiles()
+    {
+        return DATA_FILES;
     }
 
     protected static void generateJavaClasses() throws IOException {

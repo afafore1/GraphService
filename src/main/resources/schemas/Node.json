@@ -8,6 +8,11 @@
       "description": "Node Id",
       "type": "integer"
     },
+    "value":
+    {
+      "description": "The value gives a description of what this node is",
+      "type": "string"
+    },
     "xPosition":
     {
       "description": "x coordinate",
