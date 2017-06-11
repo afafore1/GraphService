@@ -6,11 +6,6 @@
 - Graph class is used for creating Nodes and Edges. You can get all Edges and Nodes from Graph class.
 - Any modification should be done through the Graph class.
 
-**Algorithms**
-- Bfs
-- Dfs
-- Dijkstra
-- Genetic algorithm
-
-**Coming Soon**
-- Simulated Annealing
+**What the graph offers**
+- You can check if the graph is strongly connected
+- You can check if graph is bipartite
