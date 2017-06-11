@@ -6,6 +6,6 @@
 - Graph class is used for creating Nodes and Edges. You can get all Edges and Nodes from Graph class.
 - Any modification should be done through the Graph class.
 
-**What the graph offers**
-- You can check if the graph is strongly connected
-- You can check if graph is bipartite
+**What graph offers**
+- Check if graph is strongly connected
+- Check if graph is bipartite
