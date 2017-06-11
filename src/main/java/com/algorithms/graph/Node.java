@@ -22,8 +22,6 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @JsonPropertyOrder({
     "id",
     "value",
-    "xPosition",
-    "yPosition",
     "visited",
     "neighbors",
     "parent"
@@ -49,16 +47,6 @@ public class Node {
      * x coordinate
      * 
      */
-    @JsonProperty("xPosition")
-    @JsonPropertyDescription("x coordinate")
-    private Integer xPosition;
-    /**
-     * y coordinate
-     * 
-     */
-    @JsonProperty("yPosition")
-    @JsonPropertyDescription("y coordinate")
-    private Integer yPosition;
     /**
      * Verify if this node has been visited
      * 
@@ -126,52 +114,6 @@ public class Node {
 
     public Node withValue(String value) {
         this.value = value;
-        return this;
-    }
-
-    /**
-     * x coordinate
-     * 
-     */
-    @JsonProperty("xPosition")
-    public Integer getXPosition() {
-        return xPosition;
-    }
-
-    /**
-     * x coordinate
-     * 
-     */
-    @JsonProperty("xPosition")
-    public void setXPosition(Integer xPosition) {
-        this.xPosition = xPosition;
-    }
-
-    public Node withXPosition(Integer xPosition) {
-        this.xPosition = xPosition;
-        return this;
-    }
-
-    /**
-     * y coordinate
-     * 
-     */
-    @JsonProperty("yPosition")
-    public Integer getYPosition() {
-        return yPosition;
-    }
-
-    /**
-     * y coordinate
-     * 
-     */
-    @JsonProperty("yPosition")
-    public void setYPosition(Integer yPosition) {
-        this.yPosition = yPosition;
-    }
-
-    public Node withYPosition(Integer yPosition) {
-        this.yPosition = yPosition;
         return this;
     }
 
@@ -246,7 +188,7 @@ public class Node {
 
     @Override
     public String toString() {
-        return this.getId()+""+this.getValue()+""+this.getXPosition()+""+this.getYPosition()+""+this.getVisited()+""+this.getNeighbors();
+        return this.getId()+""+this.getValue()+""+this.getVisited();
     }
 
 //    @Override
@@ -263,7 +205,7 @@ public class Node {
             return false;
         }
         Node rhs = ((Node) other);
-        return new EqualsBuilder().append(id, rhs.id).append(value, rhs.value).append(xPosition, rhs.xPosition).append(yPosition, rhs.yPosition).append(visited, rhs.visited).append(neighbors, rhs.neighbors).append(parent, rhs.parent).isEquals();
+        return new EqualsBuilder().append(id, rhs.id).append(value, rhs.value).append(visited, rhs.visited).append(neighbors, rhs.neighbors).append(parent, rhs.parent).isEquals();
     }
 
 }
