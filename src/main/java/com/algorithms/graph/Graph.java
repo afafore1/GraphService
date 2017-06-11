@@ -1,6 +1,8 @@
 
 package com.algorithms.graph;
 
+import com.algorithms.algorithms.Algos;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -41,8 +43,6 @@ public class Graph
                 node.setValue(value);
             }
             node.setVisited(false);
-            node.setXPosition((int)Math.random());
-            node.setYPosition((int)Math.random());
             node.setParent(null); // initially set to null
             nodeHashMap.put(id, node);
         }
@@ -122,6 +122,14 @@ public class Graph
             shortestPath.put(parent, (Node) parent.getParent());
         }
         return shortestPath;
+    }
+
+    public boolean isComplete() {
+        return Algos.isComplete(this);
+    }
+
+    public boolean isBipartite() {
+        return Algos.isBipartite(this);
     }
 
     public ArrayList<Integer> printShortestPath(ArrayList<Node> shortestPath)

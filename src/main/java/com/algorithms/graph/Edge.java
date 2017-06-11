@@ -69,7 +69,7 @@ public class Edge {
      * 
      */
     @JsonProperty("id")
-    public Integer getId() {
+    protected Integer getId() {
         return id;
     }
 
@@ -78,11 +78,11 @@ public class Edge {
      * 
      */
     @JsonProperty("id")
-    public void setId(Integer id) {
+    protected void setId(Integer id) {
         this.id = id;
     }
 
-    public Edge withId(Integer id) {
+    protected Edge withId(Integer id) {
         this.id = id;
         return this;
     }
@@ -93,7 +93,7 @@ public class Edge {
      * 
      */
     @JsonProperty("source")
-    public Object getSource() {
+    protected Object getSource() {
         return source;
     }
 
@@ -103,11 +103,11 @@ public class Edge {
      * 
      */
     @JsonProperty("source")
-    public void setSource(Object source) {
+    protected void setSource(Object source) {
         this.source = source;
     }
 
-    public Edge withSource(Object source) {
+    protected Edge withSource(Object source) {
         this.source = source;
         return this;
     }
@@ -118,7 +118,7 @@ public class Edge {
      * 
      */
     @JsonProperty("destination")
-    public Object getDestination() {
+    protected Object getDestination() {
         return destination;
     }
 
@@ -128,11 +128,11 @@ public class Edge {
      * 
      */
     @JsonProperty("destination")
-    public void setDestination(Object destination) {
+    protected void setDestination(Object destination) {
         this.destination = destination;
     }
 
-    public Edge withDestination(Object destination) {
+    protected Edge withDestination(Object destination) {
         this.destination = destination;
         return this;
     }
@@ -142,7 +142,7 @@ public class Edge {
      * 
      */
     @JsonProperty("weight")
-    public Double getWeight() {
+    protected Double getWeight() {
         return weight;
     }
 
@@ -151,11 +151,11 @@ public class Edge {
      * 
      */
     @JsonProperty("weight")
-    public void setWeight(Double weight) {
+    protected void setWeight(Double weight) {
         this.weight = weight;
     }
 
-    public Edge withWeight(Double weight) {
+    protected Edge withWeight(Double weight) {
         this.weight = weight;
         return this;
     }
@@ -165,7 +165,7 @@ public class Edge {
      * 
      */
     @JsonProperty("isSettled")
-    public Boolean getIsSettled() {
+    protected Boolean getIsSettled() {
         return isSettled;
     }
 
@@ -174,11 +174,11 @@ public class Edge {
      * 
      */
     @JsonProperty("isSettled")
-    public void setIsSettled(Boolean isSettled) {
+    protected void setIsSettled(Boolean isSettled) {
         this.isSettled = isSettled;
     }
 
-    public Edge withIsSettled(Boolean isSettled) {
+    protected Edge withIsSettled(Boolean isSettled) {
         this.isSettled = isSettled;
         return this;
     }

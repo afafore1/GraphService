@@ -13,16 +13,6 @@
       "description": "The value gives a description of what this node is",
       "type": "string"
     },
-    "xPosition":
-    {
-      "description": "x coordinate",
-      "type": "integer"
-    },
-    "yPosition":
-    {
-      "description": "y coordinate",
-      "type": "integer"
-    },
     "visited":
     {
       "description": "Verify if this node has been visited",
